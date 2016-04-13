@@ -1,0 +1,42 @@
+{% block navbar %}
+{% load i18n %}
+
+
+<!-- Fixed navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">TradeMark</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            {% url 'index' as index %}
+            {% url 'about' as about %}
+            {% url 'contact' as contact %}
+            <li {% if request.path == index %} class="active" {% endif %}><a href="{% url 'index' %}">Home</a></li>
+            <li {% if request.path == about %} class="active" {% endif %}><a href="{% url 'about' %}">About</a></li>
+            <li {% if request.path == contact %} class="active" {% endif %}><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog"></span></a>
+              <ul navbar navbar-right class="dropdown-menu">
+              {% if not request.user.is_authenticated %}
+                <li><a href="{% url 'account_signup'  %}">{% trans "Sign Up" %}</span></a></li>
+                <li><a href="{% url 'account_login' %}">{% trans "Sign In" %} <span class="glyphicon glyphicon-log-in"></span></a></li>
+              {% else %}
+                <li><a href="{% url 'account_logout' %}">{% trans "Logout" %} <span class="glyphicon glyphicon-log-out"></a></li>
+              {% endif %}
+              </ul>
+            </li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+{% endblock %}
